@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { Input, Button, Card} from 'antd';
 
-export function Display(props)
+/* export function Display(props)
 {
     return (
         <div>
@@ -9,11 +9,13 @@ export function Display(props)
         </div>
     )
 }
-
+ */
 export default function NiceForm()
 {
     const [username, setUsername] = useState('');
     const [pwd, setPwd] = useState('');
+    const [blog, setblog] = useState([]);
+    const [blogbody, setblogbody] = useState('');
 
     const updateUsername = (event) =>
     {
@@ -25,11 +27,15 @@ export default function NiceForm()
         setPwd(event.target.value);
     }
 
-    const printState = () =>
+    const updateBlog = () =>
     {
-       console.log(username);
-       console.log(pwd);
-       
+        setblog([...blog, <p>{blogbody}</p>]);
+        setblogbody('');
+    }
+
+    const updateBlogBody = (event) =>
+    {
+        setblog(event.target.value);
     }
 
     //<Input/> is the same as <Input></Input> if no html syntax is needed
@@ -48,16 +54,22 @@ export default function NiceForm()
                 size = "small"
                 onChange = {updatePwd}
             />
+            <Input
+                style = {formItemStyle}
+                placeholder = "blog"
+                size = "small"
+                onChange = {updateBlog}
+            />
             <Button
                 size = "small"
                 type = "primary"
                 style = {buttonStyle}
-                onClick = {printState}
+                onClick = {updateBlogBody}
             >
                 Submit
             </Button>
-            <h3>The output</h3>
-            <Display username={username} pwd = {pwd} />
+           {/*  <h3>The output</h3>
+            <Display username={username} pwd = {pwd} /> */}
         </Card>
     )
 }
